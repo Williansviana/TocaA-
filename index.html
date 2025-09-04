@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TocaAí 🎵</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      text-align: center;
+      padding: 40px 20px;
+      line-height: 1.7;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px;
+      background: #1a1a2e;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      color: #1DB954;
+      margin-bottom: 10px;
+      font-size: 2.6em;
+      font-weight: 700;
+    }
+    p.lead {
+      color: #aaa;
+      margin-bottom: 25px;
+      font-size: 1.1em;
+    }
+    button {
+      background: #1DB954;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 17px;
+      border-radius: 50px;
+      cursor: pointer;
+      margin: 15px 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
+    }
+    button:hover {
+      background: #1ed760;
+      transform: translateY(-2px);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    input[type="file"] {
+      margin: 20px 0;
+      padding: 12px;
+      background: #2d2d40;
+      border: 1px solid #444;
+      border-radius: 10px;
+      color: #ddd;
+      width: 100%;
+      max-width: 300px;
+    }
+    #result {
+      margin-top: 25px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      min-height: 80px;
+      font-size: 1.1em;
+    }
+
+    /* === NOVO DESIGN DO PLAYER === */
+    #player-section {
+      display: none;
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #current-song-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    #current-song-info img {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      background: #333;
+    }
+
+    #current-song-info .text {
+      text-align: left;
+      line-height: 1.3;
+    }
+
+    #current-song-info .text h4 {
+      margin: 0;
+      font-size: 1.3em;
+      color: white;
+      font-weight: 600;
+    }
+
+    #current-song-info .text p {
+      margin: 0;
+      font-size: 0.95em;
+      color: #aaa;
+    }
+
+    #music-player {
+      width: 100%;
+      height: 100px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      margin-top: 15px;
+      background: #121212;
+      transition: transform 0.2s;
+    }
+
+    #music-player:hover {
+      transform: scale(1.01);
+    }
+
+    /* === HISTÓRICO === */
+    #history {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+    }
+
+    .song-item {
+      padding: 14px;
+      margin: 10px 0;
+      background: #2a2a3a;
+      border-radius: 10px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+
+    .song-item:hover {
+      background: #333;
+    }
+
+    .song-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .song-info img {
+      width: 50px;
+      border-radius: 8px;
+    }
+
+    .song-text {
+      text-align: left;
+    }
+
+    .song-text strong {
+      font-size: 1.1em;
+      display: block;
+    }
+
+    .song-links a {
+      color: #1DB954;
+      margin-left: 15px;
+      text-decoration: none;
+      font-size: 0.95em;
+    }
+
+    .song-links a:hover {
+      text-decoration: underline;
+    }
+
+    .clear-btn {
+      background: #777 !important;
+      font-size: 14px !important;
+      margin-top: 15px;
+      box-shadow: none !important;
+    }
+
+    .clear-btn:hover {
+      background: #666 !important;
+    }
+
+    .footer {
+      margin-top: 50px;
+      color: #777;
+      font-size: 0.9em;
+    }
+
+    /* Responsivo */
+    @media (max-width: 600px) {
+      #current-song-info {
+        flex-direction: column;
+        text-align: center;
+      }
+      h1 {
+        font-size: 2.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>TocaAí 🎵</h1>
+    <p class="lead">Identifique e ouça a música inteira aqui mesmo!</p>
+
+    <!-- Botões -->
+    <button id="start">🎤 Gravar Áudio</button>
+    <div>
+      <input type="file" id="audioFile" accept="audio/*" />
+      <button id="upload">📤 Enviar Arquivo</button>
+    </div>
+
+    <!-- Resultado -->
+    <div id="result">Nenhuma música identificada ainda.</div>
+
+    <!-- Player com design premium -->
+    <div id="player-section">
+      <h3>🎶 Tocando Agora</h3>
+      <div id="current-song-info">
+        <!-- Capa, título e artista aparecerão aqui -->
+      </div>
+      <iframe 
+        id="music-player" 
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture" 
+        loading="lazy"
+        title="Player de música integrado">
+      </iframe>
+    </div>
+
+    <!-- Histórico -->
+    <h3>🎵 Histórico de Músicas</h3>
+    <div id="history">
+      <small>Nenhuma música encontrada ainda.</small>
+      <button class="clear-btn" onclick="clearHistory()">🗑 Limpar Histórico</button>
+    </div>
+
+    <div class="footer">
+      <p>TocaAí &copy; 2025 • Usa <a href="https://audd.io" target="_blank" style="color:#1DB954">AudD API</a> para reconhecimento • Players oficiais do Spotify, YouTube e Apple Music</p>
+    </div>
+  </div>
+
+  <script>
+    // === CONFIGURAÇÃO ===
+    const API_TOKEN = "227fe1def58b5ffe0f0ba666ba4c9963"; // Seu token AudD
+
+    // Elementos
+    const startBtn = document.getElementById("start");
+    const uploadBtn = document.getElementById("upload");
+    const audioFileInput = document.getElementById("audioFile");
+    const resultDiv = document.getElementById("result");
+    const playerSection = document.getElementById("player-section");
+    const currentPlayer = document.getElementById("music-player");
+    const currentSongInfo = document.getElementById("current-song-info");
+    const historyDiv = document.getElementById("history");
+
+    // Carregar histórico ao iniciar
+    loadHistory();
+
+    // Função principal: identificar e tocar
+    async function identifyAndPlay(formData) {
+      resultDiv.innerHTML = "🔍 <b>Identificando...</b> Aguarde uns segundos.";
+      playerSection.style.display = "none";
+
+      try {
+        const response = await fetch("https://api.audd.io/", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (data.status === "success" && data.result) {
+          const song = data.result;
+          const youtubeQuery = encodeURIComponent(`${song.title} ${song.artist}`);
+
+          // Mostrar música identificada
+          resultDiv.innerHTML = `
+            <h3>${song.title}</h3>
+            <p><strong>${song.artist}</strong></p>
+            ${song.album_cover_url ? `<img src="${song.album_cover_url}" width="120" style="border-radius: 12px; margin: 10px 0;">` : ""}
+          `;
+
+          // Decidir player (prioridade: Spotify > Apple Music > YouTube)
+          let playerSrc = null;
+          let platform = "";
+
+          if (song.spotify_url) {
+            const spotifyId = song.spotify_url.split('/track/')[1]?.split('?')[0];
+            if (spotifyId) {
+              playerSrc = `https://open.spotify.com/embed/track/${spotifyId}?utm_source=generator`;
+              platform = "Spotify";
+            }
+          } else if (song.apple_music_preview_url) {
+            const appleIdMatch = song.apple_music_preview_url.match(/i=([^&]+)/);
+            const albumIdMatch = song.apple_music_preview_url.match(/\/album\/[^\/]+\/([0-9]+)/);
+            const albumId = albumIdMatch ? albumIdMatch[1] : "1440888348";
+            const trackId = appleIdMatch ? appleIdMatch[1] : "";
+            playerSrc = `https://embed.music.apple.com/br/album/${albumId}?i=${trackId}`;
+            platform = "Apple Music";
+          } else {
+            playerSrc = `https://www.youtube.com/embed/?listType=search&list=${youtubeQuery}`;
+            platform = "YouTube";
+            resultDiv.innerHTML += `<p><small>🎵 Música não encontrada em plataformas oficiais. Buscando no YouTube...</small></p>`;
+          }
+
+          // Ativar player
+          if (playerSrc) {
+            currentPlayer.src = playerSrc;
+            playerSection.style.display = "block";
+            currentSongInfo.innerHTML = `
+              ${song.album_cover_url ? `<img src="${song.album_cover_url}" alt="Capa">` : ""}
+              <div class="text">
+                <h4>${song.title}</h4>
+                <p>${song.artist} <span style="color:#999;">(via ${platform})</span></p>
+              </div>
+            `;
+          }
+
+          // Salvar no histórico
+          saveToHistory(song);
+        } else {
+          resultDiv.innerHTML = "❌ Música não identificada. Tente com um áudio mais claro.";
+        }
+      } catch (err) {
+        console.error("Erro:", err);
+        resultDiv.innerHTML = "❌ Falha na conexão com o serviço de identificação.";
+      }
+    }
+
+    // Gravar áudio
+    startBtn.addEventListener("click", async () => {
+      try {
+        resultDiv.innerHTML = "🎙️ <b>Gravando...</b> (5 segundos)";
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const mediaRecorder = new MediaRecorder(stream);
+        const audioChunks = [];
+
+        mediaRecorder.start();
+        setTimeout(() => mediaRecorder.stop(), 5000);
+
+        mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+
+        mediaRecorder.onstop = async () => {
+          const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+          const formData = new FormData();
+          formData.append("file", audioBlob, "audio.wav");
+          formData.append("api_token", API_TOKEN);
+          formData.append("return", "spotify,apple_music,youtube,lyrics");
+
+          await identifyAndPlay(formData);
+          stream.getTracks().forEach(track => track.stop());
+        };
+      } catch (err) {
+        resultDiv.innerHTML = "❌ Permissão de microfone negada.";
+        console.error(err);
+      }
+    });
+
+    // Upload de arquivo
+    uploadBtn.addEventListener("click", () => {
+      const file = audioFileInput.files[0];
+      if (!file) {
+        resultDiv.innerHTML = "❌ Selecione um arquivo de áudio primeiro.";
+        return;
+      }
+
+      resultDiv.innerHTML = "📤 Enviando arquivo...";
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("api_token", API_TOKEN);
+      formData.append("return", "spotify,apple_music,youtube,lyrics");
+
+      identifyAndPlay(formData);
+    });
+
+    // === HISTÓRICO ===
+    function saveToHistory(song) {
+      const history = JSON.parse(localStorage.getItem("tocaai_history") || "[]");
+      const exists = history.some(s => s.spotify_id === song.spotify_url?.split('/track/')[1]?.split('?')[0]);
+      if (!exists && song.spotify_url) {
+        const spotifyId = song.spotify_url.split('/track/')[1]?.split('?')[0];
+        history.unshift({
+          title: song.title,
+          artist: song.artist,
+          cover: song.album_cover_url,
+          spotify_id: spotifyId,
+          youtube_query: `${song.title} ${song.artist}`
+        });
+        if (history.length > 10) history.pop();
+        localStorage.setItem("tocaai_history", JSON.stringify(history));
+      }
+      loadHistory();
+    }
+
+    function loadHistory() {
+      const history = JSON.parse(localStorage.getItem("tocaai_history") || "[]");
+      if (history.length === 0) {
+        historyDiv.innerHTML = `<small>Nenhuma música encontrada ainda.</small><button class="clear-btn" onclick="clearHistory()">🗑 Limpar Histórico</button>`;
+        return;
+      }
+
+      const itemsHTML = history.map(song => `
+        <div class="song-item">
+          <div class="song-info">
+            ${song.cover ? `<img src="${song.cover}" alt="Capa">` : `<div style="width:50px;height:50px;background:#333;border-radius:8px;"></div>`}
+            <div class="song-text">
+              <strong>${song.title}</strong>
+              <small>${song.artist}</small>
+            </div>
+          </div>
+          <div class="song-links">
+            ${song.spotify_id ? `<a href="#" onclick="playFromHistory('${song.spotify_id}');return false;">▶ Tocar</a>` : ""}
+            <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(song.youtube_query)}" target="_blank">▶ YouTube</a>
+          </div>
+        </div>
+      `).join("");
+
+      historyDiv.innerHTML = itemsHTML + '<button class="clear-btn" onclick="clearHistory()">🗑 Limpar Histórico</button>';
+    }
+
+    function clearHistory() {
+      localStorage.removeItem("tocaai_history");
+      loadHistory();
+    }
+
+    window.playFromHistory = function(spotifyId) {
+      currentPlayer.src = `https://open.spotify.com/embed/track/${spotifyId}?utm_source=generator`;
+      playerSection.style.display = "block";
+      currentSongInfo.innerHTML = `<div class="text"><h4>Reproduzindo do histórico</h4><p>Música salva anteriormente</p></div>`;
+    };
+  </script>
+</body>
+</html>
