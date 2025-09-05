@@ -1,213 +1,105 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TocaAí 🎵</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TocaAí 🎵 — Identifique e Ouça</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #121212;
-      color: #e0e0e0;
-      text-align: center;
-      padding: 40px 20px;
-      line-height: 1.7;
-    }
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 30px;
-      background: #1a1a2e;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    }
-    h1 {
-      color: #1DB954;
-      margin-bottom: 10px;
-      font-size: 2.6em;
-      font-weight: 700;
-    }
-    p.lead {
-      color: #aaa;
-      margin-bottom: 25px;
-      font-size: 1.1em;
-    }
-    button {
-      background: #1DB954;
-      color: white;
-      border: none;
-      padding: 14px 24px;
-      font-size: 17px;
-      border-radius: 50px;
-      cursor: pointer;
-      margin: 15px 10px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
-    }
-    button:hover {
-      background: #1ed760;
-      transform: translateY(-2px);
-    }
-    input[type="file"] {
-      margin: 20px 0;
-      padding: 12px;
-      background: #2d2d40;
-      border: 1px solid #444;
-      border-radius: 10px;
-      color: #ddd;
-      width: 100%;
-      max-width: 300px;
-    }
-    #result {
-      margin-top: 25px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      min-height: 80px;
-      font-size: 1.1em;
-    }
-    #player-section {
-      display: none;
-      background: #1a1a2e;
-      border-radius: 16px;
-      padding: 20px;
-      margin-top: 30px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 0.5s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    #current-song-info {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-    #current-song-info img {
-      width: 60px;
-      height: 60px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-    #current-song-info .text {
-      text-align: left;
-      line-height: 1.3;
-    }
-    #current-song-info .text h4 {
-      margin: 0;
-      font-size: 1.3em;
-      color: white;
-      font-weight: 600;
-    }
-    #current-song-info .text p {
-      margin: 0;
-      font-size: 0.95em;
-      color: #aaa;
-    }
-    #music-player {
-      width: 100%;
-      height: 100px;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      margin-top: 15px;
-      background: #121212;
-      transition: transform 0.2s;
-    }
-    #lyrics {
-      margin-top: 20px;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-      font-size: 0.95em;
-      text-align: left;
-      display: none;
-    }
-    #history {
-      margin-top: 30px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-    }
-    .song-item {
-      padding: 12px;
-      margin: 8px 0;
-      background: #2a2a3a;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      text-align: left;
-    }
-    .song-item img {
-      width: 40px;
-      border-radius: 8px;
-    }
-    .song-links a {
-      color: #1DB954;
-      margin-left: 10px;
-      text-decoration: none;
-      font-size: 0.9em;
-    }
-    .clear-btn {
-      background: #777 !important;
-      font-size: 14px !important;
-      margin-top: 15px;
-    }
-    .footer {
-      margin-top: 50px;
-      color: #777;
-      font-size: 0.9em;
-    }
+    :root{--bg:#0b1020;--card:#0f1724;--accent:#00d1ff;--glass: rgba(255,255,255,0.04);--muted:#9aa4b2}
+    *{box-sizing:border-box;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;margin:0}
+    body{background:linear-gradient(180deg,#05060a 0%,#071028 100%);color:#e7eef6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+    .app{width:980px;max-width:98%;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:22px;display:grid;grid-template-columns:320px 1fr;gap:18px;box-shadow:0 10px 40px rgba(2,6,23,0.6)}
+    .sidebar{background:var(--card);padding:18px;border-radius:12px;min-height:420px}
+    .logo{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+    .logo .badge{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#6b5bff);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .logo h1{font-size:18px}
+    .big-btn{width:100%;height:140px;border-radius:12px;background:linear-gradient(135deg, rgba(0,209,255,0.08), rgba(107,91,255,0.06));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;margin-top:12px}
+    .shazam-btn{width:92px;height:92px;border-radius:50%;background:linear-gradient(180deg,#00d1ff,#6b5bff);display:flex;align-items:center;justify-content:center;font-weight:700;box-shadow:0 8px 30px rgba(107,91,255,0.18);cursor:pointer}
+    .shazam-btn:active{transform:scale(0.98)}
+    .muted{color:var(--muted);font-size:13px}
+    .visual{height:56px;margin-top:12px;border-radius:8px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:flex;align-items:center;padding:8px;gap:8px}
+    canvas{width:100%;height:100%;display:block}
+    .history{margin-top:16px}
+    .list-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;background:var(--glass);margin-bottom:8px}
+    .list-item img{width:44px;height:44px;border-radius:6px;object-fit:cover}
+    .controls{display:flex;gap:8px;align-items:center;margin-top:10px}
+
+    /* main */
+    .main{background:var(--card);padding:18px;border-radius:12px;min-height:420px;display:flex;flex-direction:column}
+    .search{display:flex;gap:8px}
+    .search input{flex:1;padding:10px;border-radius:8px;border:0;background:transparent;color:inherit;outline:none;border:1px solid rgba(255,255,255,0.03)}
+    .results{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .track{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px}
+    .track img{width:100%;height:110px;object-fit:cover;border-radius:8px}
+    .track .meta{display:flex;justify-content:space-between;align-items:center}
+    .player{margin-top:auto;background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(255,255,255,0.02));padding:12px;border-radius:10px;display:flex;gap:12px;align-items:center}
+    .player img{width:56px;height:56px;object-fit:cover;border-radius:8px}
+    .player .info{flex:1}
+    .chip{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px;color:var(--muted)}
+    .small{font-size:13px;color:var(--muted)}
+    .center{text-align:center}
+    .kbd{background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:6px}
+
+    @media (max-width:880px){.app{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>TocaAí 🎵</h1>
-    <p class="lead">Reconheça e ouça a música completa online — sem baixar.</p>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="badge">🎵</div>
+        <div>
+          <h1>TocaAí</h1>
+          <div class="small">Reconhece e toca online</div>
+        </div>
+      </div>
 
-    <button id="start">🎤 Gravar Áudio</button>
-    <div>
-      <input type="file" id="audioFile" accept="audio/*" />
-      <button id="upload">📤 Enviar Arquivo</button>
-    </div>
+      <div class="big-btn center">
+        <div id="recordBtn" class="shazam-btn">🔊</div>
+        <div id="status" class="muted">Pronto — clique para identificar</div>
+        <div class="visual"><canvas id="viz"></canvas></div>
+      </div>
 
-    <div id="result">Nenhuma música identificada.</div>
+      <div class="controls">
+        <button id="stopBtn" class="chip">Parar</button>
+        <button id="clearHistory" class="chip">Limpar histórico</button>
+        <div style="flex:1;text-align:right" class="small">Permissões: <span id="perm">?</span></div>
+      </div>
 
-    <!-- Player online (sem download) -->
-    <div id="player-section">
-      <h3>🎶 Tocando Agora</h3>
-      <div id="current-song-info"></div>
-      <iframe 
-        id="music-player" 
-        allow="autoplay; encrypted-media" 
-        loading="lazy" 
-        title="Player do Spotify">
-      </iframe>
-    </div>
+      <div class="history">
+        <h3 style="margin:8px 0 6px 0">Histórico</h3>
+        <div id="historyList">
+          <!-- músicas identificadas aparecem aqui -->
+        </div>
+      </div>
+    </aside>
 
-    <!-- Letra -->
-    <div id="lyrics"></div>
+    <main class="main">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div style="display:flex;gap:8px;align-items:center;flex:1">
+          <input id="searchInput" placeholder="Buscar músicas, artistas..."/>
+          <button id="searchBtn" class="chip">Buscar</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="chip">Top</div>
+          <div class="chip">Gravadas</div>
+        </div>
+      </div>
 
-    <!-- Histórico -->
-    <h3>🎵 Histórico</h3>
-    <div id="history">
-      <small>Nenhuma música encontrada ainda.</small>
-      <button class="clear-btn" onclick="clearHistory()">🗑 Limpar Histórico</button>
-    </div>
+      <div class="results" id="results"></div>
 
-    <div class="footer">
-      Baseado na API do <a href="https://audd.io" target="_blank" style="color:#1DB954">AudD</a> • TocaAí &copy; 2025
-    </div>
+      <div class="player" id="player" style="display:none">
+        <img id="playerCover" src="" alt="capa"/>
+        <div class="info">
+          <div id="playerTitle">Título</div>
+          <div id="playerArtist" class="small">Artista</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="playPreview" class="chip">▶</button>
+          <button id="lyricsBtn" class="chip">Letra</button>
+        </div>
+      </div>
+    </main>
   </div>
 
   <script>
@@ -215,24 +107,118 @@
     const API_TOKEN = "227fe1def58b5ffe0f0ba666ba4c9963";
 
     // Elementos
-    const startBtn = document.getElementById("start");
-    const uploadBtn = document.getElementById("upload");
-    const audioFileInput = document.getElementById("audioFile");
-    const resultDiv = document.getElementById("result");
-    const playerSection = document.getElementById("player-section");
-    const currentPlayer = document.getElementById("music-player");
-    const currentSongInfo = document.getElementById("current-song-info");
-    const lyricsDiv = document.getElementById("lyrics");
-    const historyDiv = document.getElementById("history");
+    const recordBtn = document.getElementById('recordBtn');
+    const statusEl = document.getElementById('status');
+    const permEl = document.getElementById('perm');
+    const viz = document.getElementById('viz');
+    const stopBtn = document.getElementById('stopBtn');
+    const historyList = document.getElementById('historyList');
+    const resultsEl = document.getElementById('results');
+    const player = document.getElementById('player');
+    const playerCover = document.getElementById('playerCover');
+    const playerTitle = document.getElementById('playerTitle');
+    const playerArtist = document.getElementById('playerArtist');
+    const playPreview = document.getElementById('playPreview');
+    const lyricsBtn = document.getElementById('lyricsBtn');
 
-    // Carregar histórico
-    loadHistory();
+    let audioCtx, analyser, sourceNode, mediaStream;
+    let raf;
+    let recording = false;
+    let mediaRecorder;
+    let recordedChunks = [];
+    let audioPreview = new Audio();
 
-    // Função principal
-    async function identifyAndPlay(formData) {
-      resultDiv.innerHTML = "🔍 Identificando...";
-      playerSection.style.display = "none";
-      lyricsDiv.style.display = "none";
+    // Inicializa o visualizador de áudio
+    function setupVisualizer() {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      viz.width = viz.clientWidth * devicePixelRatio;
+      viz.height = viz.clientHeight * devicePixelRatio;
+      const canvasCtx = viz.getContext('2d');
+
+      function draw() {
+        raf = requestAnimationFrame(draw);
+        if (!analyser) return;
+        const bufferLength = analyser.frequencyBinCount;
+        const data = new Uint8Array(bufferLength);
+        analyser.getByteFrequencyData(data);
+        canvasCtx.clearRect(0, 0, viz.width, viz.height);
+        const barWidth = viz.width / bufferLength;
+        for (let i = 0; i < bufferLength; i++) {
+          const v = data[i] / 255;
+          const h = v * viz.height;
+          canvasCtx.fillStyle = `rgba(0,209,255,${0.15 + v * 0.6})`;
+          canvasCtx.fillRect(i * barWidth, viz.height - h, barWidth * 0.9, h);
+        }
+      }
+      draw();
+    }
+
+    async function startCapture() {
+      try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        permEl.textContent = 'OK';
+        if (!audioCtx) setupVisualizer();
+        if (sourceNode) sourceNode.disconnect();
+        sourceNode = audioCtx.createMediaStreamSource(mediaStream);
+        sourceNode.connect(analyser);
+
+        mediaRecorder = new MediaRecorder(mediaStream);
+        recordedChunks = [];
+
+        mediaRecorder.ondataavailable = e => {
+          if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = async () => {
+          const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+          statusEl.textContent = 'Enviando para identificação...';
+          await identifyMusic(blob);
+        };
+      } catch (e) {
+        permEl.textContent = 'Negado';
+        statusEl.textContent = 'Permissão negada. Ative o microfone.';
+        console.error(e);
+      }
+    }
+
+    recordBtn.addEventListener('click', async () => {
+      if (!recording) {
+        recording = true;
+        recordBtn.textContent = '⏺';
+        statusEl.textContent = 'Gravando...';
+        await startCapture();
+        mediaRecorder.start();
+      } else {
+        recording = false;
+        recordBtn.textContent = '🔊';
+        statusEl.textContent = 'Processando...';
+        mediaRecorder.stop();
+        if (mediaStream) {
+          mediaStream.getTracks().forEach(t => t.stop());
+        }
+        cancelAnimationFrame(raf);
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      if (recording) {
+        recording = false;
+        recordBtn.textContent = '🔊';
+        statusEl.textContent = 'Parando...';
+        mediaRecorder.stop();
+        if (mediaStream) mediaStream.getTracks().forEach(t => t.stop());
+        cancelAnimationFrame(raf);
+      }
+    });
+
+    // 🔥 Envia áudio para AudD API
+    async function identifyMusic(blob) {
+      const formData = new FormData();
+      formData.append("file", blob, "recording.webm");
+      formData.append("api_token", API_TOKEN);
+      formData.append("return", "spotify,apple_music,lyrics");
 
       try {
         const response = await fetch("https://api.audd.io/", {
@@ -244,133 +230,115 @@
 
         if (data.status === "success" && data.result) {
           const song = data.result;
+          const track = {
+            id: song.spotify_id || song.title,
+            title: song.title,
+            artist: song.artist,
+            cover: song.album_cover_url || `https://placehold.co/300x300?text=${encodeURIComponent(song.title)}`,
+            preview: song.spotify_url || "",
+            lyrics: song.lyrics || "Letra não disponível"
+          };
 
-          // Mostrar resultado
-          resultDiv.innerHTML = `
-            <h3>${song.title}</h3>
-            <p><strong>${song.artist}</strong></p>
-            ${song.album_cover_url ? `<img src="${song.album_cover_url}" width="120" style="border-radius:12px;margin:10px 0;">` : ""}
-          `;
-
-          // Tocar no Spotify (sem baixar)
-          if (song.spotify_url) {
-            const id = song.spotify_url.split('/track/')[1]?.split('?')[0];
-            if (id) {
-              currentPlayer.src = `https://open.spotify.com/embed/track/${id}?utm_source=generator`;
-              playerSection.style.display = "block";
-              currentSongInfo.innerHTML = `
-                ${song.album_cover_url ? `<img src="${song.album_cover_url}">` : ""}
-                <div class="text">
-                  <h4>${song.title}</h4>
-                  <p>${song.artist}</p>
-                </div>
-              `;
-            }
-          } else {
-            resultDiv.innerHTML += `<p><small>🎵 Música identificada, mas não disponível no Spotify.</small></p>`;
-          }
-
-          // Letra
-          if (song.lyrics) {
-            lyricsDiv.innerHTML = `<strong>🔤 Letra:</strong><br><br>${song.lyrics.replace(/\n/g, '<br>')}`;
-            lyricsDiv.style.display = "block";
-          }
-
-          // Salvar no histórico
-          saveToHistory(song);
+          statusEl.textContent = `Identificado: ${song.title} — ${song.artist}`;
+          pushHistory(track);
+          showResult(track);
         } else {
-          resultDiv.innerHTML = "❌ Música não identificada. Tente com um áudio mais claro.";
+          statusEl.textContent = "❌ Música não identificada.";
+          showResult({
+            title: "Não encontrada",
+            artist: "Tente novamente com áudio mais claro",
+            cover: "",
+            preview: ""
+          });
         }
       } catch (err) {
         console.error("Erro:", err);
-        resultDiv.innerHTML = "❌ Falha na conexão com o serviço.";
+        statusEl.textContent = "❌ Erro na conexão.";
       }
     }
 
-    // Gravar áudio
-    startBtn.addEventListener("click", async () => {
-      try {
-        resultDiv.innerHTML = "🎙️ Gravando... (5 segundos)";
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mediaRecorder = new MediaRecorder(stream);
-        const chunks = [];
-        mediaRecorder.start();
-        setTimeout(() => mediaRecorder.stop(), 5000);
-        mediaRecorder.ondataavailable = e => chunks.push(e.data);
-        mediaRecorder.onstop = async () => {
-          const blob = new Blob(chunks, { type: "audio/wav" });
-          const formData = new FormData();
-          formData.append("file", blob, "audio.wav");
-          formData.append("api_token", API_TOKEN);
-          formData.append("return", "spotify,lyrics");
-          await identifyAndPlay(formData);
-          stream.getTracks().forEach(t => t.stop());
-        };
-      } catch (err) {
-        resultDiv.innerHTML = "❌ Permissão de microfone negada.";
-      }
-    });
-
-    // Upload
-    uploadBtn.addEventListener("click", () => {
-      const file = audioFileInput.files[0];
-      if (!file) {
-        resultDiv.innerHTML = "❌ Selecione um arquivo.";
-        return;
-      }
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("api_token", API_TOKEN);
-      formData.append("return", "spotify,lyrics");
-      identifyAndPlay(formData);
-    });
-
-    // Histórico
-    function saveToHistory(song) {
-      const history = JSON.parse(localStorage.getItem("tocaai_history") || "[]");
-      const exists = history.some(s => s.spotify_id === song.spotify_url?.split('/track/')[1]);
-      if (!exists && song.spotify_url) {
-        const spotifyId = song.spotify_url.split('/track/')[1]?.split('?')[0];
-        history.unshift({
-          title: song.title,
-          artist: song.artist,
-          cover: song.album_cover_url,
-          spotify_id: spotifyId,
-          spotify_url: song.spotify_url
-        });
-        if (history.length > 10) history.pop();
-        localStorage.setItem("tocaai_history", JSON.stringify(history));
-      }
-      loadHistory();
-    }
-
-    function loadHistory() {
-      const history = JSON.parse(localStorage.getItem("tocaai_history") || "[]");
-      if (history.length === 0) {
-        historyDiv.innerHTML = `<small>Nenhuma música encontrada.</small><button class="clear-btn" onclick="clearHistory()">🗑</button>`;
-        return;
-      }
-      historyDiv.innerHTML = history.map(s => `
-        <div class="song-item">
-          ${s.cover ? `<img src="${s.cover}" alt="Capa">` : `<div style="width:40px;height:40px;background:#333;border-radius:8px;"></div>`}
-          <div>${s.title} – ${s.artist}</div>
-          <div class="song-links">
-            <a href="#" onclick="playFromHistory('${s.spotify_id}');return false;">▶</a>
-          </div>
+    function pushHistory(track) {
+      const item = document.createElement('div');
+      item.className = 'list-item';
+      item.innerHTML = `
+        <img src="${track.cover}" onerror="this.src='https://placehold.co/64x64?text=?'"/>
+        <div style="flex:1">
+          <div>${track.title}</div>
+          <div class="small">${track.artist}</div>
         </div>
-      `).join("") + '<button class="clear-btn" onclick="clearHistory()">🗑 Limpar</button>';
+        <div><button class="chip" data-id="${track.id}">Abrir</button></div>
+      `;
+      historyList.prepend(item);
+      item.querySelector('button').addEventListener('click', () => showResult(track));
     }
 
-    function clearHistory() {
-      localStorage.removeItem("tocaai_history");
-      loadHistory();
+    function showResult(track) {
+      resultsEl.innerHTML = '';
+      const card = document.createElement('div');
+      card.className = 'track';
+      card.innerHTML = `
+        <img src="${track.cover}" onerror="this.src='https://placehold.co/300x300?text=Cover'"/>
+        <div class="meta">
+          <div>
+            <strong>${track.title}</strong>
+            <div class="small">${track.artist}</div>
+          </div>
+          <div><button class="chip">Abrir</button></div>
+        </div>
+      `;
+      resultsEl.appendChild(card);
+      card.querySelector('button').addEventListener('click', () => openPlayer(track));
     }
 
-    window.playFromHistory = function(spotifyId) {
-      currentPlayer.src = `https://open.spotify.com/embed/track/${spotifyId}?utm_source=generator`;
-      playerSection.style.display = "block";
-      currentSongInfo.innerHTML = `<div class="text"><h4>Reproduzindo do histórico</h4><p>Música salva anteriormente</p></div>`;
-    };
+    function openPlayer(track) {
+      playerCover.src = track.cover;
+      playerTitle.textContent = track.title;
+      playerArtist.textContent = track.artist;
+      player.style.display = 'flex';
+
+      // Tocar no Spotify (sem baixar)
+      audioPreview.src = track.preview || '';
+      audioPreview.pause();
+    }
+
+    playPreview.addEventListener('click', () => {
+      if (audioPreview.src && !audioPreview.src.includes('placehold')) {
+        if (audioPreview.paused) {
+          audioPreview.play();
+          playPreview.textContent = '⏸';
+        } else {
+          audioPreview.pause();
+          playPreview.textContent = '▶';
+        }
+      }
+    });
+
+    lyricsBtn.addEventListener('click', () => {
+      const track = {
+        title: playerTitle.textContent,
+        artist: playerArtist.textContent
+      };
+      alert(`Letra de "${track.title}" - ${track.artist}:\n\n${window.currentLyrics || 'Letra não disponível.'}`);
+    });
+
+    document.getElementById('clearHistory').addEventListener('click', () => {
+      historyList.innerHTML = '';
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      resultsEl.innerHTML = '<div class="small">Busca não implementada no demo.</div>';
+    });
+
+    // Inicializa
+    setupVisualizer();
+
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        recordBtn.click();
+      }
+    });
   </script>
 </body>
 </html>
