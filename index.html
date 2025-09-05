@@ -19,7 +19,7 @@
       line-height: 1.7;
     }
     .container {
-      max-width: 800px;
+      max-width: 700px;
       margin: 0 auto;
       padding: 30px;
       background: #1a1a2e;
@@ -168,17 +168,12 @@
       color: #777;
       font-size: 0.9em;
     }
-    @media (max-width: 600px) {
-      #current-song-info {
-        flex-direction: column;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>TocaAí 🎵</h1>
-    <p class="lead">Reconheça e ouça a música sem vídeo — direto no site.</p>
+    <p class="lead">Reconheça e ouça a música completa online — sem baixar.</p>
 
     <button id="start">🎤 Gravar Áudio</button>
     <div>
@@ -188,7 +183,7 @@
 
     <div id="result">Nenhuma música identificada.</div>
 
-    <!-- Player do Spotify (sem vídeo) -->
+    <!-- Player online (sem download) -->
     <div id="player-section">
       <h3>🎶 Tocando Agora</h3>
       <div id="current-song-info"></div>
@@ -230,10 +225,10 @@
     const lyricsDiv = document.getElementById("lyrics");
     const historyDiv = document.getElementById("history");
 
-    // Carregar histórico ao iniciar
+    // Carregar histórico
     loadHistory();
 
-    // Função principal: identificar e tocar
+    // Função principal
     async function identifyAndPlay(formData) {
       resultDiv.innerHTML = "🔍 Identificando...";
       playerSection.style.display = "none";
@@ -257,7 +252,7 @@
             ${song.album_cover_url ? `<img src="${song.album_cover_url}" width="120" style="border-radius:12px;margin:10px 0;">` : ""}
           `;
 
-          // ✅ Tocar no Spotify (sem vídeo)
+          // Tocar no Spotify (sem baixar)
           if (song.spotify_url) {
             const id = song.spotify_url.split('/track/')[1]?.split('?')[0];
             if (id) {
@@ -284,11 +279,11 @@
           // Salvar no histórico
           saveToHistory(song);
         } else {
-          resultDiv.innerHTML = "❌ Música não identificada. Tente novamente.";
+          resultDiv.innerHTML = "❌ Música não identificada. Tente com um áudio mais claro.";
         }
       } catch (err) {
         console.error("Erro:", err);
-        resultDiv.innerHTML = "❌ Erro na conexão com o serviço.";
+        resultDiv.innerHTML = "❌ Falha na conexão com o serviço.";
       }
     }
 
@@ -299,48 +294,38 @@
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const mediaRecorder = new MediaRecorder(stream);
         const chunks = [];
-
         mediaRecorder.start();
         setTimeout(() => mediaRecorder.stop(), 5000);
-
-        mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
-
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
         mediaRecorder.onstop = async () => {
           const blob = new Blob(chunks, { type: "audio/wav" });
           const formData = new FormData();
           formData.append("file", blob, "audio.wav");
           formData.append("api_token", API_TOKEN);
           formData.append("return", "spotify,lyrics");
-
           await identifyAndPlay(formData);
-
-          // Parar microfone
-          stream.getTracks().forEach(track => track.stop());
+          stream.getTracks().forEach(t => t.stop());
         };
       } catch (err) {
         resultDiv.innerHTML = "❌ Permissão de microfone negada.";
-        console.error(err);
       }
     });
 
-    // Upload de arquivo
+    // Upload
     uploadBtn.addEventListener("click", () => {
       const file = audioFileInput.files[0];
       if (!file) {
         resultDiv.innerHTML = "❌ Selecione um arquivo.";
         return;
       }
-
-      resultDiv.innerHTML = "📤 Enviando...";
       const formData = new FormData();
       formData.append("file", file);
       formData.append("api_token", API_TOKEN);
       formData.append("return", "spotify,lyrics");
-
       identifyAndPlay(formData);
     });
 
-    // === HISTÓRICO ===
+    // Histórico
     function saveToHistory(song) {
       const history = JSON.parse(localStorage.getItem("tocaai_history") || "[]");
       const exists = history.some(s => s.spotify_id === song.spotify_url?.split('/track/')[1]);
@@ -365,7 +350,6 @@
         historyDiv.innerHTML = `<small>Nenhuma música encontrada.</small><button class="clear-btn" onclick="clearHistory()">🗑</button>`;
         return;
       }
-
       historyDiv.innerHTML = history.map(s => `
         <div class="song-item">
           ${s.cover ? `<img src="${s.cover}" alt="Capa">` : `<div style="width:40px;height:40px;background:#333;border-radius:8px;"></div>`}
