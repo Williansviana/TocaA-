@@ -1,0 +1,46 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#191414;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2a2a2a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="300" fill="url(#grad2)" rx="20"/>
+  
+  <!-- Musical harmony circles -->
+  <circle cx="100" cy="100" r="25" fill="none" stroke="url(#grad1)" stroke-width="3" opacity="0.6"/>
+  <circle cx="200" cy="100" r="25" fill="none" stroke="url(#grad1)" stroke-width="3" opacity="0.6"/>
+  <circle cx="150" cy="130" r="25" fill="none" stroke="url(#grad1)" stroke-width="3" opacity="0.6"/>
+  
+  <!-- Central note -->
+  <g transform="translate(150,115)">
+    <ellipse cx="0" cy="0" rx="12" ry="8" fill="url(#grad1)"/>
+    <rect x="10" y="-25" width="3" height="35" fill="url(#grad1)"/>
+    <path d="M13,-25 Q20,-30 25,-25 Q20,-20 13,-15" fill="url(#grad1)"/>
+  </g>
+  
+  <!-- Connecting lines -->
+  <line x1="125" y1="115" x2="175" y2="115" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+  <line x1="135" y1="125" x2="165" y2="125" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Hino number -->
+  <text x="150" y="220" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#fff">414</text>
+  <text x="150" y="245" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#b3b3b3">HINO</text>
+  
+  <!-- Decorative stars -->
+  <g transform="translate(60,60)">
+    <path d="M0,-8 L2,-2 L8,-2 L3,2 L5,8 L0,4 L-5,8 L-3,2 L-8,-2 L-2,-2 Z" fill="url(#grad1)" opacity="0.5"/>
+  </g>
+  <g transform="translate(240,60)">
+    <path d="M0,-8 L2,-2 L8,-2 L3,2 L5,8 L0,4 L-5,8 L-3,2 L-8,-2 L-2,-2 Z" fill="url(#grad1)" opacity="0.5"/>
+  </g>
+  
+  <!-- Bottom wave -->
+  <path d="M40,270 Q80,260 120,270 Q160,280 200,270 Q240,260 280,270" stroke="url(#grad1)" stroke-width="2" fill="none" opacity="0.6"/>
+</svg>

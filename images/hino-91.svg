@@ -1,0 +1,36 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1db954;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1ed760;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#191414;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2a2a2a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="300" fill="url(#grad2)" rx="20"/>
+  
+  <!-- Musical notes decoration -->
+  <circle cx="50" cy="50" r="3" fill="url(#grad1)" opacity="0.3"/>
+  <circle cx="250" cy="50" r="3" fill="url(#grad1)" opacity="0.3"/>
+  <circle cx="50" cy="250" r="3" fill="url(#grad1)" opacity="0.3"/>
+  <circle cx="250" cy="250" r="3" fill="url(#grad1)" opacity="0.3"/>
+  
+  <!-- Main musical note -->
+  <g transform="translate(150,120)">
+    <ellipse cx="0" cy="40" rx="12" ry="8" fill="url(#grad1)" transform="rotate(-20)"/>
+    <rect x="10" y="10" width="3" height="50" fill="url(#grad1)"/>
+    <path d="M13,10 Q20,5 25,10 Q20,15 13,20" fill="url(#grad1)"/>
+  </g>
+  
+  <!-- Hino number -->
+  <text x="150" y="220" font-family="Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle" fill="#fff">91</text>
+  <text x="150" y="245" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#b3b3b3">HINO</text>
+  
+  <!-- Decorative lines -->
+  <line x1="80" y1="260" x2="220" y2="260" stroke="url(#grad1)" stroke-width="2" opacity="0.5"/>
+  <line x1="90" y1="270" x2="210" y2="270" stroke="url(#grad1)" stroke-width="1" opacity="0.3"/>
+</svg>

@@ -1,0 +1,49 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd89b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#19547b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#191414;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2a2a2a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="300" fill="url(#grad2)" rx="20"/>
+  
+  <!-- Central musical symbol -->
+  <g transform="translate(150,120)">
+    <!-- Bass clef -->
+    <circle cx="-5" cy="0" r="15" fill="none" stroke="url(#grad1)" stroke-width="3"/>
+    <circle cx="10" cy="-10" r="3" fill="url(#grad1)"/>
+    <circle cx="10" cy="10" r="3" fill="url(#grad1)"/>
+    <rect x="-20" y="-2" width="15" height="4" fill="url(#grad1)"/>
+  </g>
+  
+  <!-- Rhythm pattern -->
+  <g transform="translate(70,80)">
+    <rect x="0" y="0" width="4" height="20" fill="url(#grad1)" opacity="0.7"/>
+    <rect x="8" y="5" width="4" height="15" fill="url(#grad1)" opacity="0.7"/>
+    <rect x="16" y="2" width="4" height="18" fill="url(#grad1)" opacity="0.7"/>
+    <rect x="24" y="7" width="4" height="13" fill="url(#grad1)" opacity="0.7"/>
+  </g>
+  
+  <g transform="translate(200,80)">
+    <rect x="0" y="0" width="4" height="20" fill="url(#grad1)" opacity="0.7"/>
+    <rect x="8" y="5" width="4" height="15" fill="url(#grad1)" opacity="0.7"/>
+    <rect x="16" y="2" width="4" height="18" fill="url(#grad1)" opacity="0.7"/>
+    <rect x="24" y="7" width="4" height="13" fill="url(#grad1)" opacity="0.7"/>
+  </g>
+  
+  <!-- Hino number -->
+  <text x="150" y="220" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#fff">360</text>
+  <text x="150" y="245" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#b3b3b3">HINO</text>
+  
+  <!-- Decorative border -->
+  <rect x="30" y="30" width="240" height="240" fill="none" stroke="url(#grad1)" stroke-width="1" opacity="0.3" rx="10"/>
+  
+  <!-- Bottom accent -->
+  <ellipse cx="150" cy="275" rx="50" ry="5" fill="url(#grad1)" opacity="0.4"/>
+</svg>
